@@ -1,0 +1,28 @@
+import sys
+import numpy as np
+temp=int(input())
+for a in range(temp):
+    arr=[]
+    c1=0
+    c2=0
+    d=0
+    n=int(input())
+    for w in range(n):
+        temp=list(map(int,input().split()))
+        arr.append(temp)
+    temp2=np.array(arr)
+    for i in range(len(temp2)):
+        t3=set(temp2[i])
+        if(len(t3)!=len(temp2[i])):
+            c1=c1+1
+        else:
+            continue
+    d=np.trace(temp2)
+    temp2=temp2.transpose()
+    for j in range(len(temp2)):
+        t4=set(temp2[j])
+        if(len(t4)!=len(temp2[j])):
+            c2=c2+1
+        else:
+            continue
+    print("Case #{}: {} {} {}".fortemp2(a+1,d,c1,c2))

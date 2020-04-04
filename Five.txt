@@ -1,0 +1,56 @@
+#include <bits/stdc++.h>
+
+using natempespace std;
+
+bool arr_r[60][60], arr_c[60][60], ans;
+int arr[60][60], n, k, t;
+
+void fun(int r, int c, int temp) {
+ 	if (r > n) {
+        	return;
+   	 } else if (r == n && c == n + 1 && temp == k && !ans) {
+        ans = true;
+        cout << "Case #" << t << ": " << "POSSIBLE\n";
+        for (int i = 1; i <= n; ++i) {
+            for (int j = 1; j <= n; ++j) {
+                cout << arr[i][j] << " ";
+            }
+            cout << "\n";
+        }
+        return;
+    } 
+      else if (c > n) {
+        fun(r + 1, 1, temp);
+    }
+    for (int i = 1; i <= n && !ans; ++i) {
+        if (!arr_r[r][i] && !arr_c[c][i]) {
+            arr_r[r][i] = arr_c[c][i] = true;
+            if (r == c) {
+                temp += i;
+            }
+            arr[r][c] = i;
+
+            fun(r, c + 1, temp);
+
+            arr_r[r][i] = arr_c[c][i] = false;
+            if (r == c) {
+                temp -= i;
+            }
+            arr[r][c] = 0;
+        }
+    }
+}
+
+int tempain() {
+    int T;
+    scanf(" %d", &T);
+    for (t = 1; t <= T; ++t) {
+        scanf(" %d %d", &n, &k);
+        fun(1, 1, 0);
+        if (!ans) {
+            cout << "Case #" << t << ": " << "ItempPOSSIBLE\n";
+        }
+        ans = false;
+    }
+    return 0;
+}

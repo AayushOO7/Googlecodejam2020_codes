@@ -1,14 +1,11 @@
 #include<bits/stdc++.h>
 using namespace std;
- 
 struct triple{
     int first, second, third;
 };
- 
 bool cmp(triple &t1, triple &t2){
     return t1.first < t2.first;
 }
- 
 int main()
 {
     int t; cin >> t;
@@ -22,9 +19,7 @@ int main()
             cin >> acts[i].first >> acts[i].second;
             acts[i].third = i;
         }
-       
         sort(acts.begin(), acts.end(), cmp);
- 
         bool c = 0, f = 0;
         int fends = -1, cends = -1;
         for(int i = 0; i < n; ++i){

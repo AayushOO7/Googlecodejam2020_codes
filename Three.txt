@@ -1,54 +1,52 @@
-#include <bits/stdc++.h>
-int main(int argc, char const *argv[])
+#include<bits/stdc++.h>
+using namespace std;
+ 
+struct triple{
+    int first, second, third;
+};
+ 
+bool cmp(triple &t1, triple &t2){
+    return t1.first < t2.first;
+}
+ 
+int main()
 {
-
-    int t, k;
-    std::cin >> t;
-    for (int k = 0; k < t; k++)
-    {
-        std::string s1;
-        int i, n;
-        std::cin >> n;
-        std::vector<std::pair<int, std::pair<int, int>>> v;
-        int s[n], e[n];
-        for (int i = 0; i < n; i++)
-        {
-
-            std::cin >> s[i] >> e[i];
-            v.push_back({s[i], {e[i], i}});
-            s1 += 'C';
+    int t; cin >> t;
+    for(int test = 1; test <= t; ++test){
+        string ans = "IMPOSSIBLE", s;
+        int n, flag = 0;
+        cin >> n;
+        vector<triple> acts(n);
+        for(int i = 0; i < n; i++){
+            s += '0';
+            cin >> acts[i].first >> acts[i].second;
+            acts[i].third = i;
         }
-
-        std::sort(v.begin(), v.end());
-        int c = 0, j = 0, flag = 0;
-        for (int i = 0; i < v.size(); i++)
-        {
-
-            if (v[i].first >= c)
-            {
-                s1[v[i].second.second] = 'C';
-                c = v[i].second.first;
+       
+        sort(acts.begin(), acts.end(), cmp);
+ 
+        bool c = 0, f = 0;
+        int fends = -1, cends = -1;
+        for(int i = 0; i < n; ++i){
+            if(acts[i].first >= fends){
+                f = 0;
             }
-
-            else if (v[i].first >= j)
-            {
-                s1[v[i].second.second] = 'J';
-                j = v[i].second.first;
+            if(acts[i].first >= cends){
+                c = 0;
             }
-
-            else
-            {
+            if(!f){
+                f = 1;
+                s[acts[i].third] = 'J';
+                fends = acts[i].second;
+            }else if(!c){
+                c = 1;
+                s[acts[i].third] = 'C';
+                cends = acts[i].second;
+            }else{
                 flag = 1;
                 break;
             }
         }
-        if (flag == 1)
-        {
-            std::cout << "Case #" << k + 1 << ": "
-                      << "IMPOSSIBLE" << std::endl;
-            continue;
-        }
-        std::cout << "Case #" << k + 1 << ": " << s1 << std::endl;
+        cout << "Case #" << test << ": " << (flag ? ans : s) << endl;
     }
-    return 0;
 }
